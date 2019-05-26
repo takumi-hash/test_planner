@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('home');
 });
+Route::post('prior', 'PriorsController@calc')->name('prior.show');
+Route::post('posterior', 'PosteriorsController@calc')->name('posterior.show');
