@@ -2,20 +2,8 @@
 
 @section('content')
 <div class="container">
-    <script src="//cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js">
-    </script>
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="" id="test">
-                default
-            </div>
-            <script>
-                var sig_level = 0.05;
-                var effect_size = 0.8;
-                var sample_size = 35;
-                console.log(jStat.normal.pdf(1-(sig_level/2), 0, 1));
-                document.getElementById('test').innerHTML = sig_level;
-            </script>
             <div class="card">
                 <div class="card-header">Prior Analysis</div>
                     <div class="card-body">

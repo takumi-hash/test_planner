@@ -13,6 +13,9 @@
                 <li>
                     Power: {{ $power }}
                 </li>
+                <li>
+                    {{ var_dump($res) }}
+                </li>
             </ul>
         </div>
     </div>

@@ -28,10 +28,20 @@ class PriorsController extends Controller
         $p_value = $request->p_value;
         $power = $request->power;
 
+        $param = array('effect_size' => $effect_size, 'power' => $power, 'p_value' => $p_value);
+        $encParam = json_encode($param);
+
+        $cmd = "R --vanilla --slave --args '$encParam' < prior.R";
+        exec($cmd, $response);
+        $res = $response[0];
+        //print_r($res);
+        // print_r(json_decode($res));
+
         return view('prior.result', [
             'effect_size' => $effect_size,
             'p_value' => $p_value,
             'power' => $power,
+            'res' => json_decode($res),
         ]);
     }
 }
