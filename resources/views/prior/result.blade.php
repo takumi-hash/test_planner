@@ -14,7 +14,7 @@
                     Power: {{ $power }}
                 </li>
                 <li>
-                    {{ var_dump($res) }}
+                    {{ $res->result_n }}
                 </li>
             </ul>
         </div>
