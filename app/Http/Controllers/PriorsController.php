@@ -31,7 +31,7 @@ class PriorsController extends Controller
         $param = array('effect_size' => $effect_size, 'power' => $power, 'p_value' => $p_value);
         $encParam = json_encode($param);
 
-        $cmd = "./bin/R --vanilla --slave --args '$encParam' < prior.R";
+        $cmd = "~/bin/R --vanilla --slave --args '$encParam' < prior.R";
         exec($cmd, $response);
         $res = $response[0];
         //print_r($res);
