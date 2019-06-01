@@ -3,48 +3,64 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">Prior Analysis</div>
-                    <div class="card-body">
-                        {!! Form::open(['route' => 'prior.show']) !!}
-                            <div class="form-group">
-                                {!! Form::label('effect_size', 'Effect Size (Small: 0.2, Medium: 0.5, Large: 0.8)') !!}
-                                {!! Form::input('number', 'effect_size', 0.8, ['class' => 'form-control', 'step'=>'0.01', 'min'=>'0.0', 'max'=>'1.0'])!!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('p_value', 'Significant Level (Alpha; Tolerance of false positive)') !!}
-                                {!! Form::input('number', 'p_value', 0.05, ['class' => 'form-control', 'step'=>'0.005', 'min'=>'0.0', 'max'=>'1.0'])!!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('power', 'Power (1-Beta; Tolerance of false negative)') !!}
-                                {!! Form::input('number', 'power', 0.8, ['class' => 'form-control', 'step'=>'0.1', 'min'=>'0.0', 'max'=>'1.0'])!!}
-                            </div>
-                            {!! Form::submit('Calculate', ['class' => 'btn btn-primary btn-block']) !!}
-                        {!! Form::close() !!}
+        <div class="col-md-8">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="prior-tab" data-toggle="tab" href="#prior" role="tab" aria-controls="prior" aria-selected="true">事前の分析</a>
+                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link" id="posterior-tab" data-toggle="tab" href="#posterior" role="tab" aria-controls="posterior" aria-selected="false">事後の分析</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="prior" role="tabpanel" aria-labelledby="prior-tab">
+                    <div class="col-md-12 p-3">
+                        <div class="card">
+                            <div class="card-header">必要なサンプルサイズを求める</div>
+                                <div class="card-body">
+                                    {!! Form::open(['route' => 'prior.show']) !!}
+                                        <div class="form-group">
+                                            {!! Form::label('effect_size', 'Effect Size (Small: 0.1, Medium: 0.3, Large: 0.5)') !!}
+                                            {!! Form::input('number', 'effect_size', 0.5, ['class' => 'form-control', 'step'=>'0.1', 'min'=>'0.0', 'max'=>'0.5'])!!}
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('p_value', 'Significant Level (Alpha; Tolerance of false positive)') !!}
+                                            {!! Form::input('number', 'p_value', 0.05, ['class' => 'form-control', 'step'=>'0.005', 'min'=>'0.0', 'max'=>'1.0'])!!}
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('power', 'Power (1-Beta; Tolerance of false negative)') !!}
+                                            {!! Form::input('number', 'power', 0.8, ['class' => 'form-control', 'step'=>'0.1', 'min'=>'0.0', 'max'=>'1.0'])!!}
+                                        </div>
+                                        {!! Form::submit('Calculate', ['class' => 'btn btn-primary btn-block']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                        </div>
                     </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">Posterior Analysis</div>
-                    <div class="card-body">
-                        {!! Form::open(['route' => 'posterior.show']) !!}
-                            <div class="form-group">
-                                {!! Form::label('sample_size', 'Sample Size') !!}
-                                {!! Form::input('number', 'sample_size', 3000, ['class' => 'form-control'])!!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('p_value', 'p-value (Alpha; Tolerance of false positive)') !!}
-                                {!! Form::input('number', 'p_value', 0.05, ['class' => 'form-control', 'step'=>'0.005', 'min'=>'0.0', 'max'=>'1.0'])!!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('power', 'Power (1-Beta; Tolerance of false negative)') !!}
-                                {!! Form::input('number', 'power', 0.8, ['class' => 'form-control', 'step'=>'0.1', 'min'=>'0.0', 'max'=>'1.0'])!!}
-                            </div>
-                            {!! Form::submit('Calculate', ['class' => 'btn btn-primary btn-block']) !!}
-                        {!! Form::close() !!}
+                </div>
+                <div class="tab-pane fade" id="posterior" role="tabpanel" aria-labelledby="posterior-tab">
+                    <div class="col-md-12 p-3">
+                        <div class="card">
+                            <div class="card-header">Posterior Analysis</div>
+                                <div class="card-body">
+                                    {!! Form::open(['route' => 'posterior.show']) !!}
+                                        <div class="form-group">
+                                            {!! Form::label('sample_size', 'Sample Size') !!}
+                                            {!! Form::input('number', 'sample_size', 3000, ['class' => 'form-control'])!!}
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('p_value', 'p-value (Alpha; Tolerance of false positive)') !!}
+                                            {!! Form::input('number', 'p_value', 0.05, ['class' => 'form-control', 'step'=>'0.005', 'min'=>'0.0', 'max'=>'1.0'])!!}
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('power', 'Power (1-Beta; Tolerance of false negative)') !!}
+                                            {!! Form::input('number', 'power', 0.8, ['class' => 'form-control', 'step'=>'0.1', 'min'=>'0.0', 'max'=>'1.0'])!!}
+                                        </div>
+                                        {!! Form::submit('Calculate', ['class' => 'btn btn-primary btn-block']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>

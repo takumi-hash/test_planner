@@ -2,8 +2,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white navbar-extend">
             <div class="container">
                 <a class="navbar-brand font-weight-light" href="{{ url('/') }}">
-                    <i class="far fa-bookmark"></i>
-                    {{ config('app.name', 'Test Planner') }}
+                    <!-- i class="far fa-bookmark"></i -->
+                    {{ config('app.name', 'AB Test Planner') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
