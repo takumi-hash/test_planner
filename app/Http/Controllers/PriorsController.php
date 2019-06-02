@@ -24,7 +24,8 @@ class PriorsController extends Controller
      */
     public function calc(Request $request)
     {
-        $effect_size = $request->effect_size;
+        $control_ctr = $request->control_ctr;
+        $ctr_lift = $request->ctr_lift;
         $p_value = $request->p_value;
         $power = $request->power;
 
@@ -34,8 +35,6 @@ class PriorsController extends Controller
         $cmd = "~/bin/R --vanilla --slave --args '$encParam' < prior.R";
         exec($cmd, $response);
         $res = $response[0];
-        //print_r($res);
-        // print_r(json_decode($res));
 
         return view('prior.result', [
             'effect_size' => $effect_size,

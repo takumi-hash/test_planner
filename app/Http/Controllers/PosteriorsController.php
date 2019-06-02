@@ -17,68 +17,32 @@ class PosteriorsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function calc(Request $request)
     {
-        //
-    }
+        $control_imp = $request->effect_size;
+        $experimental_imp = $request->p_value;
+        $control_cv = $request->control_cv;
+        $experimental_cv = $request->experimental_cv;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $param = array('control_imp' => $control_imp, 'experimental_imp' => $experimental_imp, 'control_cv' => $control_cv, 'experimental_cv' => $experimental_cv);
+        $encParam = json_encode($param);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $cmd = "~/bin/R --vanilla --slave --args '$encParam' < posterior.R";
+        exec($cmd, $response);
+        $res = $response[0];
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('posterior.result', [
+            'control_imp' => $control_imp,
+            'experimental_imp' => $experimental_imp,
+            'control_cv' => $control_cv,
+            'experimental_cv' => $experimental_cv,
+            'power' => $power,
+            'res' => json_decode($res),
+        ]);
     }
 }

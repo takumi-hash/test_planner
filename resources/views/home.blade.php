@@ -53,16 +53,20 @@
                                 <div class="card-body">
                                     {!! Form::open(['route' => 'posterior.show']) !!}
                                         <div class="form-group">
-                                            {!! Form::label('sample_size', 'Sample Size') !!}
-                                            {!! Form::input('number', 'sample_size', 3000, ['class' => 'form-control'])!!}
+                                            {!! Form::label('$control_imp', '統制群のサンプルサイズ') !!}
+                                            {!! Form::input('number', 'control_imp', 3000, ['class' => 'form-control'])!!}
                                         </div>
                                         <div class="form-group">
-                                            {!! Form::label('p_value', 'p-value (Alpha; Tolerance of false positive)') !!}
-                                            {!! Form::input('number', 'p_value', 0.05, ['class' => 'form-control', 'step'=>'0.005', 'min'=>'0.0', 'max'=>'1.0'])!!}
+                                            {!! Form::label('experimental_imp', '実験群のサンプルサイズ') !!}
+                                            {!! Form::input('number', 'experimental_imp', 3000, ['class' => 'form-control'])!!}
                                         </div>
                                         <div class="form-group">
-                                            {!! Form::label('power', 'Power (1-Beta; Tolerance of false negative)') !!}
-                                            {!! Form::input('number', 'power', 0.8, ['class' => 'form-control', 'step'=>'0.1', 'min'=>'0.0', 'max'=>'1.0'])!!}
+                                            {!! Form::label('control_cv', '統制群のCV数') !!}
+                                            {!! Form::input('number', 'control_cv', 3000, ['class' => 'form-control'])!!}
+                                        </div>
+                                        <div class="form-group">
+                                            {!! Form::label('experimental_cv', '統制群のCV数') !!}
+                                            {!! Form::input('number', 'experimental_cv', 3000, ['class' => 'form-control'])!!}
                                         </div>
                                         {!! Form::submit('Calculate', ['class' => 'btn btn-primary btn-block']) !!}
                                     {!! Form::close() !!}
