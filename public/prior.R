@@ -1,6 +1,4 @@
 library(rjson);
-library(pwr);
-
 
 x1 <- commandArgs()[5];
 
