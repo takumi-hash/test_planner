@@ -16,10 +16,33 @@
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/style.css">
-        <script src="https://unpkg.com/simple-statistics@7.0.2/dist/simple-statistics.min.js"></script>
 
-        <!-- Bootstrap CSS -->
+        <!-- Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <script>
+        function changeReadOnly(){
+            var obj = document.getElementById('power_input');
+            if(obj.readOnly == true){
+                obj.readOnly = false;
+            }else{
+                obj.readOnly = true;
+            }
+            var radios1 = document.getElementById('radios1');
+            if(radios1.disabled == true){
+                radios1.disabled = false;
+            }else{
+                radios1.disabled = true;
+            }
+            var radios2 = document.getElementById('radios2');
+            if(radios2.disabled == true){
+                radios2.disabled = false;
+            }else{
+                radios2.disabled = true;
+            }
+        };
+        </script>
+
     </head>
     <body>
         @include('commons.navbar')
@@ -31,6 +54,6 @@
 
         @include('commons.footer')
         <!-- Optional JavaScript -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="{{ mix('js/app.js') }}"></script>
     </body>
 </html>
