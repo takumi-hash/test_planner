@@ -5,7 +5,10 @@
         <div class="text-center">
             <ul>
                 <li>
-                    Effect Size: {{ $effect_size }}
+                    Control CTR: {{ $res->control_ctr}}
+                </li>
+                <li>
+                    Expecting CTR: {{ $res->experimental_ctr }}
                 </li>
                 <li>
                     Significant Level: {{ $p_value }}
@@ -14,7 +17,7 @@
                     Power: {{ $power }}
                 </li>
                 <li>
-                    {{ $res->result_n }}
+                    必要なサンプルサイズ：1群あたり{{ $res->result_n }}
                 </li>
             </ul>
         </div>

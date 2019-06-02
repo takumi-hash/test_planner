@@ -5,12 +5,13 @@ x1 <- commandArgs()[5];
 xx1 <- fromJSON(x1);
 
 control_ctr <- as.numeric(xx1["control_ctr"]);
-ctr_lift <- as.numeric(xx1["ctr_lift"]);
+experimental_ctr <- as.numeric(xx1["experimental_ctr"]);
 power <- as.numeric(xx1["power"]);
 p_value <- as.numeric(xx1["p_value"]);
 
-lifted_ctr <- control_ctr + ctr_lift
-result <- power.prop.test(p1=control_ctr, p2=lifted_ctr, power=power, sig.level=p_value, strict=TRUE)
+result <- power.prop.test(p1=control_ctr, p2=experimental_ctr, power=power, sig.level=p_value, strict=TRUE)
 
+xx1["control_ctr"] <- control_ctr;
+xx1["experimental_ctr"] <- experimental_ctr;
 xx1["result_n"] <- result$n;
-cat(toJSON(c(xx1["result_n"])));
+cat(toJSON(c(xx1["control_ctr"],xx1["experimental_ctr"],xx1["result_n"])));

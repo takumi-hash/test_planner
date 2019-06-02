@@ -5,16 +5,22 @@
         <div class="text-center">
             <ul>
                 <li>
-                    Effect Size: {{ $effect_size }}
+                    Control Imp: {{ $control_imp }}
                 </li>
                 <li>
-                    Significant Level: {{ $p_value }}
+                    Control CV: {{ $control_cv }}
                 </li>
                 <li>
-                    Power: {{ $power }}
+                    Experimental Imp: {{ $experimental_imp }}
                 </li>
                 <li>
-                    {{ $res->result_n }}
+                    Expeerimental CV: {{ $experimental_cv }}
+                </li>
+                <li>
+                    Significant Level: {{ $res->p_value }}
+                </li>
+                <li>
+                    Power: {{ $res->power }}
                 </li>
             </ul>
         </div>

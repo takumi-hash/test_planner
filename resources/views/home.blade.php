@@ -29,12 +29,22 @@
                                             {!! Form::input('number', 'control_ctr', 0.1, ['class' => 'form-control', 'step'=>'0.0001', 'min'=>'0.0', 'max'=>'0.9999'])!!}
                                         </div>
                                         <div class="form-group">
-                                            {!! Form::label('ctr_lift', '統制群の見込みCTR') !!}
-                                            {!! Form::input('number', 'ctr_lift', 0.05, ['class' => 'form-control', 'step'=>'0.0001', 'min'=>'0.0', 'max'=>'0.9999'])!!}
+                                            {!! Form::label('experimental_ctr', '実験群の見込みCTR') !!}
+                                            {!! Form::input('number', 'experimental_ctr', 0.15, ['class' => 'form-control', 'step'=>'0.0001', 'min'=>'0.0', 'max'=>'0.9999'])!!}
                                         </div>
                                         <div class="form-group">
-                                            {!! Form::label('p_value', 'Significant Level (Alpha; Tolerance of false positive)') !!}
-                                            {!! Form::input('number', 'p_value', 0.05, ['class' => 'form-control', 'step'=>'0.005', 'min'=>'0.0', 'max'=>'1.0'])!!}
+                                            <div class="form-check form-check-inline">
+                                                {!! Form::radio('p_value', '0.001', false, ['class' => 'form-check-input', 'id' => 'radios1']) !!}
+                                                {!! Form::label('radios1', '0.001', ['class' => 'form-check-label']) !!}
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                {!! Form::radio('p_value', '0.01', false, ['class' => 'form-check-input', 'id' => 'radios2']) !!}
+                                                {!! Form::label('radios2', '0.01', ['class' => 'form-check-label']) !!}
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                {!! Form::radio('p_value', '0.05', true, ['class' => 'form-check-input', 'id' => 'radios3']) !!}
+                                                {!! Form::label('radios3', '0.05', ['class' => 'form-check-label']) !!}
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             {!! Form::label('power', 'Power (1-Beta; Tolerance of false negative)') !!}
@@ -62,11 +72,11 @@
                                         </div>
                                         <div class="form-group">
                                             {!! Form::label('control_cv', '統制群のCV数') !!}
-                                            {!! Form::input('number', 'control_cv', 3000, ['class' => 'form-control'])!!}
+                                            {!! Form::input('number', 'control_cv', 100, ['class' => 'form-control'])!!}
                                         </div>
                                         <div class="form-group">
                                             {!! Form::label('experimental_cv', '統制群のCV数') !!}
-                                            {!! Form::input('number', 'experimental_cv', 3000, ['class' => 'form-control'])!!}
+                                            {!! Form::input('number', 'experimental_cv', 250, ['class' => 'form-control'])!!}
                                         </div>
                                         {!! Form::submit('Calculate', ['class' => 'btn btn-primary btn-block']) !!}
                                     {!! Form::close() !!}
