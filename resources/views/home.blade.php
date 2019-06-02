@@ -18,7 +18,6 @@
                         <div class="">
                             <h2>事前の分析とは</h2>
                             <p>ABテストに向けて、必要なサンプルサイズを見積もるために行います。</p>
-                            <p></p>
                         </div>
                         <div class="card">
                             <div class="card-header">必要なサンプルサイズを求める</div>
