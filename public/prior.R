@@ -6,12 +6,13 @@ x1 <- commandArgs()[5];
 
 xx1 <- fromJSON(x1);
 
-effect_size <- as.numeric(xx1["effect_size"]);
+control_ctr <- as.numeric(xx1["control_ctr"]);
+ctr_lift <- as.numeric(xx1["ctr_lift"]);
 power <- as.numeric(xx1["power"]);
 p_value <- as.numeric(xx1["p_value"]);
 
-# result <- pwr.t.test(d = effect_size, power = power, sig.level = p_value);
-result <- pwr.chisq.test(w = effect_size,  df=1, sig.level = p_value, power = power)
-total_obs <- result$N;
-xx1["result_n"] <- total_obs/2;
+lifted_ctr <- control_ctr + ctr_lift
+result <- power.prop.test(p1=control_ctr, p2=lifted_ctr, power=power, sig.level=p_value, strict=TRUE)
+
+xx1["result_n"] <- result$n;
 cat(toJSON(c(xx1["result_n"])));
