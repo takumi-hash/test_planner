@@ -42,7 +42,7 @@
             }
         };
         </script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
     </head>
     <body>
         @include('commons.navbar')

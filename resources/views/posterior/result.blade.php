@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="center jumbotron">
+        <canvas id="myChart">
+            
+        </canvas>
         <div class="text-center">
             <ul>
                 <li>
