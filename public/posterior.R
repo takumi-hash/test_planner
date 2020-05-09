@@ -28,7 +28,7 @@ if(pwr_result$power >= 0.8){
     message_power <- "本当は差があるのに差がないとしてしまっている可能性は高い。"
 }
 
-xx1["p_value"] <- result$p.value;
+xx1["p_value"] <- round(result$p.value,2);
 xx1["power"] <- pwr_result$power;
 xx1["message_p"] <- message_p;
 xx1["message_power"] <- message_power;
