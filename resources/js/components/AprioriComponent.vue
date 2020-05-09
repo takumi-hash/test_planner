@@ -63,7 +63,7 @@
         methods: {
             calculateApriori(){
                 axios
-                    .post("/api/apriori/",{
+                    .post("/api/apriori",{
                         control_ctr: this.control_ctr,
                         experimental_ctr: this.experimental_ctr,
                         p_value: this.p_value,
