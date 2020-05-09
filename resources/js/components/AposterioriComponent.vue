@@ -56,7 +56,7 @@
         methods: {
             calculateAposteriori(){
                 axios
-                    .post("/api/aposteriori/",{
+                    .post("/api/aposteriori",{
                         control_imp: this.control_imp,
                         control_cv: this.control_cv,
                         experimental_imp: this.experimental_imp,

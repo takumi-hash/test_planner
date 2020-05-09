@@ -1776,7 +1776,7 @@ __webpack_require__.r(__webpack_exports__);
     calculateAposteriori: function calculateAposteriori() {
       var _this = this;
 
-      axios.post("/api/aposteriori/", {
+      axios.post("/api/aposteriori", {
         control_imp: this.control_imp,
         control_cv: this.control_cv,
         experimental_imp: this.experimental_imp,
