@@ -32,13 +32,8 @@ class AprioriController extends Controller
         $param = array('control_ctr' => $control_ctr, 'experimental_ctr' => $experimental_ctr, 'p_value' => $p_value, 'power' => $power);
         $encParam = json_encode($param);
 
-<<<<<<< HEAD
-        $cmd = "~/bin/R --vanilla --slave --args '$encParam' < prior.R";
-        // dev $cmd = "/usr/local/bin/R --vanilla --slave --args '$encParam' < prior.R";
-=======
-        //prod $cmd = "~/bin/R --vanilla --slave --args '$encParam' < prior.R";
+        // prod $cmd = "~/bin/R --vanilla --slave --args '$encParam' < prior.R";
         $cmd = "/usr/local/bin/R --vanilla --slave --args '$encParam' < prior.R";
->>>>>>> result-api
         exec($cmd, $response);
         $res = $response[0];
 

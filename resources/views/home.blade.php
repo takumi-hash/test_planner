@@ -22,42 +22,6 @@
                         <div class="card">
                             <div class="card-header">必要なサンプルサイズを求める</div>
                             <div class="card-body">
-                                {!! Form::open(['route' => 'prior.show']) !!}
-                                    <div class="form-group">
-                                        {!! Form::label('control_ctr', '統制群の見込みCTR') !!}
-                                        {!! Form::input('number', 'control_ctr', 0.1, ['class' => 'form-control', 'step'=>'0.0001', 'min'=>'0.0', 'max'=>'0.9999'])!!}
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('experimental_ctr', '実験群の見込みCTR') !!}
-                                        {!! Form::input('number', 'experimental_ctr', 0.15, ['class' => 'form-control', 'step'=>'0.0001', 'min'=>'0.0', 'max'=>'0.9999'])!!}
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('p_value', '有意水準：「本当は差がないのに差がある」と判断することへの許容度')!!}
-                                        <div class="form-check form-check-inline">
-                                            {!! Form::radio('p_value', '0.001', false, ['class' => 'form-check-input', 'id' => 'radios1', 'disabled' => '']) !!}
-                                            {!! Form::label('radios1', '0.001', ['class' => 'form-check-label']) !!}
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            {!! Form::radio('p_value', '0.01', false, ['class' => 'form-check-input', 'id' => 'radios2','disabled'=>'']) !!}
-                                            {!! Form::label('radios2', '0.01', ['class' => 'form-check-label']) !!}
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            {!! Form::radio('p_value', '0.05', true, ['class' => 'form-check-input', 'id' => 'radios3']) !!}
-                                            {!! Form::label('radios3', '0.05', ['class' => 'form-check-label']) !!}
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('power', '検定力：「本当は差がないのに差がある」と判断することへの許容度') !!}
-                                        {!! Form::input('number', 'power', 0.8, ['class' => 'form-control', 'id' => 'power_input', 'step'=>'0.1', 'min'=>'0.0', 'max'=>'1.0', 'readonly'=>''])!!}
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="form-check">
-                                            {!! Form::checkbox('agree', 1, false, ['class' => 'form-check-input', 'id' => 'modifyCheck', 'onclick' => 'changeReadOnly()']) !!}
-                                            {!! Form::label('modifyCheck', '結果に与える影響を理解しているので有意水準と検定力を変更する。', ['class' => 'form-check-label']) !!}
-                                        </div>
-                                    </div>
-                                    {!! Form::submit('Calculate', ['class' => 'btn btn-primary btn-block']) !!}
-                                {!! Form::close() !!}
                                 <div id="app">
                                     <apriori-component></apriori-component>
                                 </div>

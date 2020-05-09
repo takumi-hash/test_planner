@@ -1751,11 +1751,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       message: "",
-      updateForm: true,
       control_ctr: 0.1,
       experimental_ctr: 0.15,
       p_value: 0.05,
@@ -1775,7 +1789,7 @@ __webpack_require__.r(__webpack_exports__);
         p_value: this.p_value,
         power: this.power
       }).then(function (response) {
-        _this.res = response.data.res.result_n;
+        _this.res = Math.round(response.data.res.result_n);
         _this.message = "Responded";
       })["catch"](function (err) {
         _this.message = err;
@@ -37466,132 +37480,246 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("Example Component")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _vm.updateForm
-              ? _c("div", [
-                  _c("p", [
-                    _vm._v("統制群の見込みCTR："),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.control_ctr,
-                          expression: "control_ctr"
-                        }
-                      ],
-                      attrs: { type: "number", step: "0.01" },
-                      domProps: { value: _vm.control_ctr },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.control_ctr = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v("実験群の見込みCTR："),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.experimental_ctr,
-                          expression: "experimental_ctr"
-                        }
-                      ],
-                      attrs: { type: "number", step: "0.01" },
-                      domProps: { value: _vm.experimental_ctr },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.experimental_ctr = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v("有意水準："),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.p_value,
-                          expression: "p_value"
-                        }
-                      ],
-                      attrs: { type: "number", step: "0.01" },
-                      domProps: { value: _vm.p_value },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.p_value = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      on: {
-                        click: function($event) {
-                          return _vm.calculateApriori(
-                            _vm.control_ctr,
-                            _vm.experimental_ctr,
-                            _vm.p_value
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                            Go\n                        "
-                      )
-                    ]
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("div", {}, [
-              _vm._v(
-                "\n                      Result goes here.\n                      "
-              ),
-              _c("ol", [
-                _c("li", [_vm._v("p-value: " + _vm._s(_vm.p_value))]),
-                _vm._v(" "),
-                _c("li", [_vm._v("Power: " + _vm._s(_vm.power))]),
-                _vm._v(" "),
-                _c("li", [_vm._v("res array: " + _vm._s(_vm.res))])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _vm.message ? _c("p", [_vm._v(_vm._s(_vm.message))]) : _vm._e()
-        ])
+  return _c("div", {}, [
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "control_ctr" } }, [
+        _vm._v("統制群の見込みCTR")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.control_ctr,
+            expression: "control_ctr"
+          }
+        ],
+        attrs: { type: "number", step: "0.01", min: "0.0", max: "1.0" },
+        domProps: { value: _vm.control_ctr },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.control_ctr = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "experimental_ctr" } }, [
+        _vm._v("実験群の見込みCTR")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.experimental_ctr,
+            expression: "experimental_ctr"
+          }
+        ],
+        attrs: { type: "number", step: "0.01", min: "0.0", max: "1.0" },
+        domProps: { value: _vm.experimental_ctr },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.experimental_ctr = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "experimental_ctr" } }, [_vm._v("有意水準")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check form-check-inline" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.p_value,
+              expression: "p_value"
+            }
+          ],
+          staticClass: "form-check-input",
+          attrs: {
+            id: "radios1",
+            disabled: "",
+            name: "p_value",
+            type: "radio",
+            value: "0.001"
+          },
+          domProps: { checked: _vm._q(_vm.p_value, "0.001") },
+          on: {
+            change: function($event) {
+              _vm.p_value = "0.001"
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "form-check-label", attrs: { for: "radios1" } },
+          [_vm._v("0.001")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check form-check-inline" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.p_value,
+              expression: "p_value"
+            }
+          ],
+          staticClass: "form-check-input",
+          attrs: {
+            id: "radios2",
+            disabled: "",
+            name: "p_value",
+            type: "radio",
+            value: "0.01"
+          },
+          domProps: { checked: _vm._q(_vm.p_value, "0.01") },
+          on: {
+            change: function($event) {
+              _vm.p_value = "0.01"
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "form-check-label", attrs: { for: "radios2" } },
+          [_vm._v("0.01")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-check form-check-inline" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.p_value,
+              expression: "p_value"
+            }
+          ],
+          staticClass: "form-check-input",
+          attrs: {
+            id: "radios3",
+            disabled: "",
+            name: "p_value",
+            type: "radio",
+            value: "0.05"
+          },
+          domProps: { checked: _vm._q(_vm.p_value, "0.05") },
+          on: {
+            change: function($event) {
+              _vm.p_value = "0.05"
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "form-check-label", attrs: { for: "radios3" } },
+          [_vm._v("0.05")]
+        )
       ])
+    ]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c("input", {
+      staticClass: "btn btn-primary btn-block",
+      attrs: { type: "submit", value: "Calculate" },
+      on: {
+        click: function($event) {
+          return _vm.calculateApriori(
+            _vm.control_ctr,
+            _vm.experimental_ctr,
+            _vm.p_value
+          )
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c("div", [_vm._v("\n      ▼\n    ")]),
+    _vm._v(" "),
+    _c("div", [
+      _vm._v(
+        "\n    1群あたり必要なサンプルサイズは" + _vm._s(_vm.res) + "人。\n    "
+      )
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "power" } }, [
+        _vm._v("検定力：「本当は差がないのに差がある」と判断することへの許容度")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          id: "power_input",
+          step: "0.1",
+          min: "0.0",
+          max: "1.0",
+          name: "power",
+          type: "number",
+          value: "0.8",
+          readonly: ""
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("div", { staticClass: "form-check" }, [
+        _c("input", {
+          staticClass: "form-check-input",
+          attrs: {
+            id: "modifyCheck",
+            onclick: "changeReadOnly()",
+            name: "agree",
+            type: "checkbox",
+            value: "1"
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "form-check-label", attrs: { for: "modifyCheck" } },
+          [
+            _vm._v(
+              "結果に与える影響を理解しているので有意水準と検定力を変更する。"
+            )
+          ]
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
