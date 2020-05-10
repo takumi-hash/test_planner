@@ -1851,7 +1851,7 @@ __webpack_require__.r(__webpack_exports__);
       labels: ["Group A", "Group B"],
       datasets: [{
         label: "CTR",
-        backgroundColor: "#f87979",
+        backgroundColor: "#b0ddf1",
         data: [this.control_cv / this.control_imp, this.experimental_cv / this.experimental_imp]
       }]
     };
@@ -2004,7 +2004,7 @@ __webpack_require__.r(__webpack_exports__);
       labels: ["Group A", "Group B"],
       datasets: [{
         label: "想定CTR",
-        backgroundColor: "#f87979",
+        backgroundColor: "#b0ddf1",
         data: [this.control_ctr, this.experimental_ctr]
       }]
     };
@@ -75167,21 +75167,6 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "btn btn-primary btn-block",
-        attrs: { type: "submit", value: "Calculate" },
-        on: {
-          click: function($event) {
-            return _vm.calculateAposteriori(
-              _vm.control_imp,
-              _vm.experimental_imp,
-              _vm.control_cv,
-              _vm.experimental_cv
-            )
-          }
-        }
-      }),
-      _vm._v(" "),
       _c("div", [_vm._v("\n      ▼\n    ")]),
       _vm._v(" "),
       _c("div", [
@@ -75436,20 +75421,6 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm._m(0),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "btn btn-primary btn-block",
-        attrs: { type: "submit", value: "Calculate" },
-        on: {
-          click: function($event) {
-            return _vm.calculateApriori(
-              _vm.control_ctr,
-              _vm.experimental_ctr,
-              _vm.p_value
-            )
-          }
-        }
-      }),
       _vm._v(" "),
       _c("div", [_vm._v("\n      ▼\n    ")]),
       _vm._v(" "),

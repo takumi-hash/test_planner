@@ -34,7 +34,7 @@
                 <label for="modifyCheck" class="form-check-label">結果に与える影響を理解しているので有意水準と検定力を変更する。</label>
             </div>
         </div>
-        <input @click="calculateApriori(control_ctr, experimental_ctr, p_value)" class="btn btn-primary btn-block" type="submit" value="Calculate">
+        <!-- input @click="calculateApriori(control_ctr, experimental_ctr, p_value)" class="btn btn-primary btn-block" type="submit" value="Calculate" -->
         <div>
           ▼
         </div>
@@ -131,7 +131,7 @@
               datasets: [
                   {
                       label: "想定CTR",
-                      backgroundColor: "#f87979",
+                      backgroundColor: "#b0ddf1",
                       data: [this.control_ctr, this.experimental_ctr]
                   }
               ]

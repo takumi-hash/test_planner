@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <input @click="calculateAposteriori(control_imp, experimental_imp,control_cv, experimental_cv)" class="btn btn-primary btn-block" type="submit" value="Calculate">
+        <!-- input @click="calculateAposteriori(control_imp, experimental_imp,control_cv, experimental_cv)" class="btn btn-primary btn-block" type="submit" value="Calculate" -->
         <div>
           ▼
         </div>
@@ -134,7 +134,7 @@
                 datasets: [
                     {
                         label: "CTR",
-                        backgroundColor: "#f87979",
+                        backgroundColor: "#b0ddf1",
                         data: [(this.control_cv/this.control_imp), (this.experimental_cv/this.experimental_imp)]
                     }
                 ]
