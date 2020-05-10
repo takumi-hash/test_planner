@@ -31,8 +31,8 @@ class AposterioriController extends Controller
 
         $param = array('control_imp' => $control_imp, 'experimental_imp' => $experimental_imp, 'control_cv' => $control_cv, 'experimental_cv' => $experimental_cv);
         $encParam = json_encode($param);
-        $cmd = "~/bin/R --vanilla --slave --args '$encParam' < posterior.R";
-        // dev $cmd = "R --vanilla --slave --args '$encParam' < posterior.R";
+        //$cmd = "~/bin/R --vanilla --slave --args '$encParam' < posterior.R";
+        $cmd = "R --vanilla --slave --args '$encParam' < posterior.R";
         exec($cmd, $response);
         $res = $response[0];
 

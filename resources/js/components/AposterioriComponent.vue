@@ -1,24 +1,33 @@
 <template>
     <div class="">
+        <barchart-component :chartData="chartData" :options="options"></barchart-component>
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <label for="control_imp">統制群のサンプルサイズ</label>
-                    <input type="number" v-model="control_imp" class="form-control" tep="1" min="0">
+                    <label for="control_cv">統制群CTR</label>
+                    <div v-model="control_ctr">{{ control_ctr }}</div>
                 </div>
                 <div class="form-group">
-                    <label for="experimental_imp">実験群のサンプルサイズ</label>
-                    <input type="number" v-model="experimental_imp" class="form-control" tep="1" min="0">
+                    <label for="control_cv">統制群のCV数</label>
+                    <input type="number" v-model="control_cv" class="form-control" step="1" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="control_imp">統制群のサンプルサイズ</label>
+                    <input type="number" v-model="control_imp" class="form-control" step="1" min="0">
                 </div>
             </div>
             <div class="col-6">
                 <div class="form-group">
-                    <label for="control_cv">統制群のCV数</label>
-                    <input type="number" v-model="control_cv" class="form-control" tep="1" min="0">
+                    <label for="control_cv">実験群CTR</label>
+                    <div v-model="control_ctr">{{ experimental_ctr }}</div>
                 </div>
                 <div class="form-group">
                     <label for="experimental_cv">実験群のCV数</label>
-                    <input type="number" v-model="experimental_cv" class="form-control" tep="1" min="0">
+                    <input type="number" v-model="experimental_cv" class="form-control" step="1" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="experimental_imp">実験群のサンプルサイズ</label>
+                    <input type="number" v-model="experimental_imp" class="form-control" step="1" min="0">
                 </div>
             </div>
         </div>
@@ -36,18 +45,50 @@
 </template>
 
 <script>
+    import BarchartComponent from './BarchartComponent.vue';
     export default {
+        name: 'BarChart2',
+        components: {
+            BarchartComponent
+        },
         data() {
             return{
                 control_imp: 6000,
                 control_cv: 1230,
+                control_ctr: "",
                 experimental_imp: 8000,
                 experimental_cv: 1100,
+                experimental_ctr: "",
                 p_value: "",
                 message_p: "",
                 power: "",
                 message_power: "",
-                message: ""
+                message: "",
+                chartData: {
+                    labels: ['Control', 'Experiment'],
+                    datasets: [
+                        {
+                            label: 'sample1',
+                            data:[0.1, 0.15]
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                          scaleLabel: {
+                            display: true,
+                            //label: '想定CTR'
+                          }
+                        }],
+                        yAxes: [{
+                          ticks: {
+                            beginAtZero: true,
+                            stepSize: 0.1
+                          }
+                        }]
+                    }
+                }
             };
         },
         created: function() {
@@ -67,6 +108,18 @@
                         this.message_p = response.data.res.message_p;
                         this.power = response.data.res.power;
                         this.message_power = response.data.res.message_power;
+                        this.control_ctr = (this.control_cv/this.control_imp);
+                        this.experimental_ctr = (this.experimental_cv/this.experimental_imp);
+                        this.chartData = {
+                            labels: ["Group A", "Group B"],
+                            datasets: [
+                                {
+                                    label: "CTR",
+                                    backgroundColor: "#3fc462",
+                                    data: [(this.control_cv/this.control_imp), (this.experimental_cv/this.experimental_imp)]
+                                }
+                            ]
+                        };
                     })
                     .catch(err => {
                         this.message = err;
@@ -74,7 +127,18 @@
             }
         },
         mounted() {
-            console.log('Component mounted.')
+            this.control_ctr = (this.control_cv/this.control_imp);
+            this.experimental_ctr = (this.experimental_cv/this.experimental_imp);
+            this.chartData = {
+                labels: ["Group A", "Group B"],
+                datasets: [
+                    {
+                        label: "CTR",
+                        backgroundColor: "#f87979",
+                        data: [(this.control_cv/this.control_imp), (this.experimental_cv/this.experimental_imp)]
+                    }
+                ]
+            };
         }
     };
 </script>

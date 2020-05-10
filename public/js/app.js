@@ -1719,6 +1719,7 @@ module.exports = function isBuffer (obj) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BarchartComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BarchartComponent.vue */ "./resources/js/components/BarchartComponent.vue");
 //
 //
 //
@@ -1756,18 +1757,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'BarChart2',
+  components: {
+    BarchartComponent: _BarchartComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       control_imp: 6000,
       control_cv: 1230,
+      control_ctr: "",
       experimental_imp: 8000,
       experimental_cv: 1100,
+      experimental_ctr: "",
       p_value: "",
       message_p: "",
       power: "",
       message_power: "",
-      message: ""
+      message: "",
+      chartData: {
+        labels: ['Control', 'Experiment'],
+        datasets: [{
+          label: 'sample1',
+          data: [0.1, 0.15]
+        }]
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true //label: '想定CTR'
+
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              stepSize: 0.1
+            }
+          }]
+        }
+      }
     };
   },
   created: function created() {//
@@ -1786,13 +1826,32 @@ __webpack_require__.r(__webpack_exports__);
         _this.message_p = response.data.res.message_p;
         _this.power = response.data.res.power;
         _this.message_power = response.data.res.message_power;
+        _this.control_ctr = _this.control_cv / _this.control_imp;
+        _this.experimental_ctr = _this.experimental_cv / _this.experimental_imp;
+        _this.chartData = {
+          labels: ["Group A", "Group B"],
+          datasets: [{
+            label: "CTR",
+            backgroundColor: "#3fc462",
+            data: [_this.control_cv / _this.control_imp, _this.experimental_cv / _this.experimental_imp]
+          }]
+        };
       })["catch"](function (err) {
         _this.message = err;
       });
     }
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.control_ctr = this.control_cv / this.control_imp;
+    this.experimental_ctr = this.experimental_cv / this.experimental_imp;
+    this.chartData = {
+      labels: ["Group A", "Group B"],
+      datasets: [{
+        label: "CTR",
+        backgroundColor: "#f87979",
+        data: [this.control_cv / this.control_imp, this.experimental_cv / this.experimental_imp]
+      }]
+    };
   }
 });
 
@@ -74940,162 +74999,211 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "control_imp" } }, [
-            _vm._v("統制群のサンプルサイズ")
+  return _c(
+    "div",
+    {},
+    [
+      _c("barchart-component", {
+        attrs: { chartData: _vm.chartData, options: _vm.options }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-6" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "control_cv" } }, [
+              _vm._v("統制群CTR")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                model: {
+                  value: _vm.control_ctr,
+                  callback: function($$v) {
+                    _vm.control_ctr = $$v
+                  },
+                  expression: "control_ctr"
+                }
+              },
+              [_vm._v(_vm._s(_vm.control_ctr))]
+            )
           ]),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.control_imp,
-                expression: "control_imp"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "number", tep: "1", min: "0" },
-            domProps: { value: _vm.control_imp },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "control_cv" } }, [
+              _vm._v("統制群のCV数")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.control_cv,
+                  expression: "control_cv"
                 }
-                _vm.control_imp = $event.target.value
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number", step: "1", min: "0" },
+              domProps: { value: _vm.control_cv },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.control_cv = $event.target.value
+                }
               }
-            }
-          })
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "control_imp" } }, [
+              _vm._v("統制群のサンプルサイズ")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.control_imp,
+                  expression: "control_imp"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number", step: "1", min: "0" },
+              domProps: { value: _vm.control_imp },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.control_imp = $event.target.value
+                }
+              }
+            })
+          ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "experimental_imp" } }, [
-            _vm._v("実験群のサンプルサイズ")
+        _c("div", { staticClass: "col-6" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "control_cv" } }, [
+              _vm._v("実験群CTR")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                model: {
+                  value: _vm.control_ctr,
+                  callback: function($$v) {
+                    _vm.control_ctr = $$v
+                  },
+                  expression: "control_ctr"
+                }
+              },
+              [_vm._v(_vm._s(_vm.experimental_ctr))]
+            )
           ]),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.experimental_imp,
-                expression: "experimental_imp"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "number", tep: "1", min: "0" },
-            domProps: { value: _vm.experimental_imp },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "experimental_cv" } }, [
+              _vm._v("実験群のCV数")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.experimental_cv,
+                  expression: "experimental_cv"
                 }
-                _vm.experimental_imp = $event.target.value
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number", step: "1", min: "0" },
+              domProps: { value: _vm.experimental_cv },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.experimental_cv = $event.target.value
+                }
               }
-            }
-          })
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "experimental_imp" } }, [
+              _vm._v("実験群のサンプルサイズ")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.experimental_imp,
+                  expression: "experimental_imp"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number", step: "1", min: "0" },
+              domProps: { value: _vm.experimental_imp },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.experimental_imp = $event.target.value
+                }
+              }
+            })
+          ])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "control_cv" } }, [
-            _vm._v("統制群のCV数")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.control_cv,
-                expression: "control_cv"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "number", tep: "1", min: "0" },
-            domProps: { value: _vm.control_cv },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.control_cv = $event.target.value
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "experimental_cv" } }, [
-            _vm._v("実験群のCV数")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.experimental_cv,
-                expression: "experimental_cv"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "number", tep: "1", min: "0" },
-            domProps: { value: _vm.experimental_cv },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.experimental_cv = $event.target.value
-              }
-            }
-          })
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("input", {
-      staticClass: "btn btn-primary btn-block",
-      attrs: { type: "submit", value: "Calculate" },
-      on: {
-        click: function($event) {
-          return _vm.calculateAposteriori(
-            _vm.control_imp,
-            _vm.experimental_imp,
-            _vm.control_cv,
-            _vm.experimental_cv
-          )
+      _c("input", {
+        staticClass: "btn btn-primary btn-block",
+        attrs: { type: "submit", value: "Calculate" },
+        on: {
+          click: function($event) {
+            return _vm.calculateAposteriori(
+              _vm.control_imp,
+              _vm.experimental_imp,
+              _vm.control_cv,
+              _vm.experimental_cv
+            )
+          }
         }
-      }
-    }),
-    _vm._v(" "),
-    _c("div", [_vm._v("\n      ▼\n    ")]),
-    _vm._v(" "),
-    _c("div", [
-      _vm._v(
-        "\n    p-value: " +
-          _vm._s(_vm.p_value) +
-          "." +
-          _vm._s(_vm.message_p) +
-          "\n    "
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", [
-      _vm._v(
-        "\n    power: " +
-          _vm._s(_vm.power) +
-          "." +
-          _vm._s(_vm.message_power) +
-          "\n    "
-      )
-    ])
-  ])
+      }),
+      _vm._v(" "),
+      _c("div", [_vm._v("\n      ▼\n    ")]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "\n    p-value: " +
+            _vm._s(_vm.p_value) +
+            "." +
+            _vm._s(_vm.message_p) +
+            "\n    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _vm._v(
+          "\n    power: " +
+            _vm._s(_vm.power) +
+            "." +
+            _vm._s(_vm.message_power) +
+            "\n    "
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

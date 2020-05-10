@@ -18,9 +18,6 @@
                         <div class="card">
                             <div class="card-header">必要なサンプルサイズを求める</div>
                             <div class="card-body">
-                                <div class="">
-
-                                </div>
                                 <div id="">
                                     <apriori-component></apriori-component>
                                 </div>
@@ -33,9 +30,6 @@
                         <div class="card">
                             <div class="card-header">テスト結果を分析する</div>
                             <div class="card-body">
-                                <div class="">
-                                    <barchart-component></barchart-component>
-                                </div>
                                 <div id="">
                                     <aposteriori-component></aposteriori-component>
                                 </div>
