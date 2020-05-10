@@ -1720,6 +1720,8 @@ module.exports = function isBuffer (obj) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BarchartComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BarchartComponent.vue */ "./resources/js/components/BarchartComponent.vue");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -1767,19 +1769,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'BarChart2',
+  name: 'BarChart',
   components: {
     BarchartComponent: _BarchartComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    _allTexts: function _allTexts() {
+      return [this.experimental_cv, this.experimental_imp, this.control_cv, this.control_imp];
+    }
   },
   data: function data() {
     return {
       control_imp: 6000,
       control_cv: 1230,
-      control_ctr: "",
       experimental_imp: 8000,
       experimental_cv: 1100,
-      experimental_ctr: "",
       p_value: "",
       message_p: "",
       power: "",
@@ -1810,7 +1816,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  created: function created() {//
+  created: function created() {
+    this.debouncedGetAnswer = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["debounce"])(this.calculateAposteriori, 1500);
   },
   methods: {
     calculateAposteriori: function calculateAposteriori() {
@@ -1826,8 +1833,6 @@ __webpack_require__.r(__webpack_exports__);
         _this.message_p = response.data.res.message_p;
         _this.power = response.data.res.power;
         _this.message_power = response.data.res.message_power;
-        _this.control_ctr = _this.control_cv / _this.control_imp;
-        _this.experimental_ctr = _this.experimental_cv / _this.experimental_imp;
         _this.chartData = {
           labels: ["Group A", "Group B"],
           datasets: [{
@@ -1842,8 +1847,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.control_ctr = this.control_cv / this.control_imp;
-    this.experimental_ctr = this.experimental_cv / this.experimental_imp;
     this.chartData = {
       labels: ["Group A", "Group B"],
       datasets: [{
@@ -1852,6 +1855,12 @@ __webpack_require__.r(__webpack_exports__);
         data: [this.control_cv / this.control_imp, this.experimental_cv / this.experimental_imp]
       }]
     };
+  },
+  watch: {
+    _allTexts: function _allTexts(value, oldValue) {
+      console.log('allTexts change:', oldValue, '->', value);
+      this.debouncedGetAnswer();
+    }
   }
 });
 
@@ -75014,19 +75023,7 @@ var render = function() {
               _vm._v("統制群CTR")
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                model: {
-                  value: _vm.control_ctr,
-                  callback: function($$v) {
-                    _vm.control_ctr = $$v
-                  },
-                  expression: "control_ctr"
-                }
-              },
-              [_vm._v(_vm._s(_vm.control_ctr))]
-            )
+            _c("div", [_vm._v(_vm._s(_vm.control_cv / _vm.control_imp))])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
@@ -75092,19 +75089,9 @@ var render = function() {
               _vm._v("実験群CTR")
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                model: {
-                  value: _vm.control_ctr,
-                  callback: function($$v) {
-                    _vm.control_ctr = $$v
-                  },
-                  expression: "control_ctr"
-                }
-              },
-              [_vm._v(_vm._s(_vm.experimental_ctr))]
-            )
+            _c("div", [
+              _vm._v(_vm._s(_vm.experimental_cv / _vm.experimental_imp))
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
@@ -87923,14 +87910,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./resources/js/components/BarchartComponent.vue ***!
   \*******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BarchartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BarchartComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/BarchartComponent.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _BarchartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _BarchartComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
 
 
@@ -87960,7 +87946,7 @@ component.options.__file = "resources/js/components/BarchartComponent.vue"
 /*!********************************************************************************!*\
   !*** ./resources/js/components/BarchartComponent.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

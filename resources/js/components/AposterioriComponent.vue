@@ -5,7 +5,7 @@
             <div class="col-6">
                 <div class="form-group">
                     <label for="control_cv">統制群CTR</label>
-                    <div v-model="control_ctr">{{ control_ctr }}</div>
+                    <div>{{ control_cv/control_imp }}</div>
                 </div>
                 <div class="form-group">
                     <label for="control_cv">統制群のCV数</label>
@@ -19,7 +19,7 @@
             <div class="col-6">
                 <div class="form-group">
                     <label for="control_cv">実験群CTR</label>
-                    <div v-model="control_ctr">{{ experimental_ctr }}</div>
+                    <div>{{ experimental_cv/experimental_imp }}</div>
                 </div>
                 <div class="form-group">
                     <label for="experimental_cv">実験群のCV数</label>
@@ -46,19 +46,23 @@
 
 <script>
     import BarchartComponent from './BarchartComponent.vue';
+    import { throttle, debounce } from 'lodash';
     export default {
-        name: 'BarChart2',
+        name: 'BarChart',
         components: {
             BarchartComponent
+        },
+        computed: {
+            _allTexts() {
+                return [this.experimental_cv, this.experimental_imp, this.control_cv, this.control_imp];
+            }
         },
         data() {
             return{
                 control_imp: 6000,
                 control_cv: 1230,
-                control_ctr: "",
                 experimental_imp: 8000,
                 experimental_cv: 1100,
-                experimental_ctr: "",
                 p_value: "",
                 message_p: "",
                 power: "",
@@ -92,7 +96,7 @@
             };
         },
         created: function() {
-            //
+            this.debouncedGetAnswer = debounce(this.calculateAposteriori, 1500)
         },
         methods: {
             calculateAposteriori(){
@@ -108,8 +112,6 @@
                         this.message_p = response.data.res.message_p;
                         this.power = response.data.res.power;
                         this.message_power = response.data.res.message_power;
-                        this.control_ctr = (this.control_cv/this.control_imp);
-                        this.experimental_ctr = (this.experimental_cv/this.experimental_imp);
                         this.chartData = {
                             labels: ["Group A", "Group B"],
                             datasets: [
@@ -127,8 +129,6 @@
             }
         },
         mounted() {
-            this.control_ctr = (this.control_cv/this.control_imp);
-            this.experimental_ctr = (this.experimental_cv/this.experimental_imp);
             this.chartData = {
                 labels: ["Group A", "Group B"],
                 datasets: [
@@ -139,6 +139,12 @@
                     }
                 ]
             };
+        },
+        watch: {
+            _allTexts(value, oldValue) {
+                console.log('allTexts change:', oldValue, '->', value);
+                this.debouncedGetAnswer();
+            }
         }
     };
 </script>
