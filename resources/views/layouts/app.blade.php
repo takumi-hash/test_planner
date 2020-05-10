@@ -40,6 +40,12 @@
             }else{
                 radios2.disabled = true;
             }
+            var radios3 = document.getElementById('radios3');
+            if(radios3.disabled == true){
+                radios3.disabled = false;
+            }else{
+                radios3.disabled = true;
+            }
         };
         </script>
     </head>

@@ -1876,6 +1876,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BarchartComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BarchartComponent.vue */ "./resources/js/components/BarchartComponent.vue");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -1925,10 +1927,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Barchart',
   components: {
     BarchartComponent: _BarchartComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    _allTexts: function _allTexts() {
+      return [this.experimental_ctr, this.control_ctr, this.power, this.p_value];
+    }
   },
   data: function data() {
     return {
@@ -1963,7 +1971,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  created: function created() {//
+  created: function created() {
+    this.debouncedGetAnswer = Object(lodash__WEBPACK_IMPORTED_MODULE_1__["debounce"])(this.calculateApriori, 1500);
   },
   methods: {
     calculateApriori: function calculateApriori() {
@@ -1999,6 +2008,12 @@ __webpack_require__.r(__webpack_exports__);
         data: [this.control_ctr, this.experimental_ctr]
       }]
     };
+  },
+  watch: {
+    _allTexts: function _allTexts(value, oldValue) {
+      console.log('allTexts change:', oldValue, '->', value);
+      this.debouncedGetAnswer();
+    }
   }
 });
 
@@ -75381,9 +75396,46 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "power" } }, [
+          _vm._v(
+            "検定力：「本当は差がないのに差がある」と判断することへの許容度"
+          )
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.power,
+              expression: "power"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "power_input",
+            step: "0.1",
+            min: "0.0",
+            max: "1.0",
+            name: "power",
+            type: "number",
+            value: "0.8",
+            readonly: ""
+          },
+          domProps: { value: _vm.power },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.power = $event.target.value
+            }
+          }
+        })
+      ]),
       _vm._v(" "),
-      _vm._m(1),
+      _vm._m(0),
       _vm._v(" "),
       _c("input", {
         staticClass: "btn btn-primary btn-block",
@@ -75413,30 +75465,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "power" } }, [
-        _vm._v("検定力：「本当は差がないのに差がある」と判断することへの許容度")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: {
-          id: "power_input",
-          step: "0.1",
-          min: "0.0",
-          max: "1.0",
-          name: "power",
-          type: "number",
-          value: "0.8",
-          readonly: ""
-        }
-      })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

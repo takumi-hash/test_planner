@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
             <label for="power">検定力：「本当は差がないのに差がある」と判断することへの許容度</label>
-            <input class="form-control" id="power_input" step="0.1" min="0.0" max="1.0" name="power" type="number" value="0.8" readonly="">
+            <input class="form-control" v-model="power" id="power_input" step="0.1" min="0.0" max="1.0" name="power" type="number" value="0.8" readonly="">
         </div>
         <div class="form-group">
             <div class="form-check">
@@ -48,10 +48,16 @@
 
 <script>
     import BarchartComponent from './BarchartComponent.vue';
+    import { throttle, debounce } from 'lodash';
     export default {
         name: 'Barchart',
         components: {
             BarchartComponent
+        },
+        computed: {
+            _allTexts() {
+                return [this.experimental_ctr, this.control_ctr, this.power, this.p_value];
+            }
         },
         data() {
             return{
@@ -89,7 +95,7 @@
             };
         },
         created: function() {
-            //
+            this.debouncedGetAnswer = debounce(this.calculateApriori, 1500)
         },
         methods: {
             calculateApriori(){
@@ -130,6 +136,12 @@
                   }
               ]
           };
+        },
+        watch: {
+            _allTexts(value, oldValue) {
+                console.log('allTexts change:', oldValue, '->', value);
+                this.debouncedGetAnswer();
+            }
         }
     };
 </script>
