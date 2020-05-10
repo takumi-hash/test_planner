@@ -22,6 +22,7 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('apriori-component', require('./components/AprioriComponent.vue').default);
 Vue.component('aposteriori-component', require('./components/AposterioriComponent.vue').default);
+Vue.component('barchart-component', require('./components/BarchartComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

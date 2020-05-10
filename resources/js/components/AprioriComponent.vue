@@ -1,5 +1,6 @@
 <template>
     <div class="">
+        <barchart-component :chartData="chartData" :options="options"></barchart-component>
         <div class="form-group">
             <label for="control_ctr">統制群の見込みCTR</label>
             <input type="number" v-model="control_ctr" step="0.01" min="0.0" max="1.0">
@@ -46,7 +47,12 @@
 </template>
 
 <script>
+    import BarchartComponent from './BarchartComponent.vue';
     export default {
+        name: 'Barchart',
+        components: {
+            BarchartComponent
+        },
         data() {
             return{
                 message: "",
@@ -54,7 +60,32 @@
                 experimental_ctr: 0.15,
                 p_value: 0.05,
                 power: 0.8,
-                res: 0
+                res: 0,
+                chartData: {
+                    labels: ['Control', 'Experiment'],
+                    datasets: [
+                        {
+                            label: 'sample1',
+                            data:[0.1, 0.15]
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                          scaleLabel: {
+                            display: true,
+                            //label: '想定CTR'
+                          }
+                        }],
+                        yAxes: [{
+                          ticks: {
+                            beginAtZero: true,
+                            stepSize: 0.1
+                          }
+                        }]
+                    }
+                }
             };
         },
         created: function() {
@@ -71,6 +102,16 @@
                     })
                     .then(response => {
                         this.res = Math.round(response.data.res.result_n);
+                        this.chartData = {
+                            labels: ["Group A", "Group B"],
+                            datasets: [
+                                {
+                                    label: "想定CTR",
+                                    backgroundColor: "#3fc462",
+                                    data: [this.control_ctr, this.experimental_ctr]
+                                }
+                            ]
+                        };
                         this.message = "Responded";
                     })
                     .catch(err => {
@@ -79,7 +120,16 @@
             }
         },
         mounted() {
-            console.log('Component mounted.')
+          this.chartData = {
+              labels: ["Group A", "Group B"],
+              datasets: [
+                  {
+                      label: "想定CTR",
+                      backgroundColor: "#f87979",
+                      data: [this.control_ctr, this.experimental_ctr]
+                  }
+              ]
+          };
         }
     };
 </script>
