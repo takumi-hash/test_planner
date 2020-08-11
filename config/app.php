@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Simple Test Planner'),
+    'name' => env('APP_NAME', 'AB Test Planner'),
 
     /*
     |--------------------------------------------------------------------------
