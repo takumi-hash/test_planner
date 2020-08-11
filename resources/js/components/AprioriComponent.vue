@@ -1,13 +1,21 @@
 <template>
     <div class="">
         <barchart-component :chartData="chartData" :options="options"></barchart-component>
-            <div class="form-group">
-                <label for="control_ctr">統制群の見込みCTR</label>
-                <input type="number" v-model="control_ctr" class="form-control" step="0.01" min="0.0" max="1.0">
+            <div class="form-group row">
+              <div class="col-6">
+                  <label for="control_ctr">統制群の見込みCTR</label>
+              </div>
+              <div class="col-6">
+                  <input type="number" v-model="control_ctr" class="form-control" step="0.01" min="0.0" max="1.0">
+              </div>
             </div>
-            <div class="form-group">
-                <label for="experimental_ctr">実験群の見込みCTR</label>
-                <input type="number" v-model="experimental_ctr" class="form-control" step="0.01" min="0.0" max="1.0">
+            <div class="form-group row">
+                <div class="col-6">
+                    <label for="experimental_ctr">実験群の見込みCTR</label>
+                </div>
+                <div class="col-6">
+                    <input type="number" v-model="experimental_ctr" class="form-control" step="0.01" min="0.0" max="1.0">
+                </div>
             </div>
             <div class="form-group">
                 <label for="experimental_ctr">有意水準</label>
@@ -31,7 +39,7 @@
             <div class="form-group">
                 <div class="form-check">
                     <input class="form-check-input" id="modifyCheck" onclick="changeReadOnly()" name="agree" type="checkbox" value="1">
-                    <label for="modifyCheck" class="form-check-label">結果に与える影響を理解しているので有意水準と検定力を変更する。</label>
+                    <label for="modifyCheck" class="form-check-label">結果に与える影響を理解しているので有意水準と検定力を変更する。<br>※通常は変更する必要はありません。</label>
                 </div>
             </div>
             <!-- input @click="calculateApriori(control_ctr, experimental_ctr, p_value)" class="btn btn-primary btn-block" type="submit" value="Calculate" -->
